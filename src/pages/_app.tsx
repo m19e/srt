@@ -4,7 +4,7 @@ import "@/styles/globals.css"
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <ThemeProvider>
+    <ThemeProvider defaultTheme="night">
       <Component {...pageProps} />
     </ThemeProvider>
   )
