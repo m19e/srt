@@ -9,37 +9,58 @@ type Subtitle = {
   sub: string
 }
 
+const createSubtitleMap = (text: string) => {
+  return new Map<string, Subtitle>(
+    text.split("\n\n").map((block) => {
+      const [id, time, sub] = block.split("\n")
+      return [id, { id, time, sub }]
+    })
+  )
+}
+
 const useSubtitleMap = () => {
   const [file, setFile] = useState<File | null>(null)
   const [fileText, setFileText] = useState("")
-  const emptyText = fileText === ""
+  const [subtitleMap, setSubtitleMap] = useState(new Map<string, Subtitle>([]))
+
+  const emptySubs = subtitleMap.size === 0
 
   useEffect(() => {
     const f = async () => {
       if (file) {
         const text = await file.text()
         setFileText(text ?? "")
+        setSubtitleMap(createSubtitleMap(text))
       }
     }
     f()
   }, [file])
 
-  return { fileText, emptyText, setFile }
+  const updateSubtitle = (newSub: Subtitle) => {
+    const target = subtitleMap.get(newSub.id)
+    if (target) {
+      setSubtitleMap(new Map(subtitleMap.set(newSub.id, newSub)))
+    }
+  }
+
+  return { fileText, emptySubs, subtitleMap, setFile, updateSubtitle }
 }
 
 const Page: NextPage = () => {
-  const { fileText, emptyText, setFile } = useSubtitleMap()
-
-  const blocks = fileText.split("\n\n")
+  const { subtitleMap, emptySubs, setFile, updateSubtitle } = useSubtitleMap()
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen font-sans bg-base-100">
       <div className="flex overflow-auto flex-col items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
         <Dropzone onDrop={setFile} />
-        {!emptyText && (
+        {!emptySubs && (
           <div className="flex flex-col">
-            {blocks.map((block, i) => (
-              <SubtitleItem key={block + i} block={block} />
+            {Array.from(subtitleMap.values()).map((sub) => (
+              <SubtitleItem
+                key={sub.id}
+                subtitle={sub}
+                onUpdate={updateSubtitle}
+              />
             ))}
           </div>
         )}
@@ -49,20 +70,31 @@ const Page: NextPage = () => {
 }
 
 interface ItemProps {
-  block: string
+  subtitle: Subtitle
+  onUpdate: (sub: Subtitle) => void
 }
 
-const SubtitleItem = ({ block }: ItemProps) => {
-  const [id, time, sub] = block.split("\n")
+const SubtitleItem = ({ subtitle, onUpdate }: ItemProps) => {
+  const { id, sub } = subtitle
   const [isOpenEdit, setIsOpenEdit] = useState(false)
   const [editSub, setEditSub] = useState(sub)
+
+  const handleToggle = () => {
+    if (isOpenEdit && sub !== editSub.trim()) {
+      onUpdate({
+        ...subtitle,
+        sub: editSub.trim(),
+      })
+    }
+    setIsOpenEdit((p) => !p)
+  }
 
   return (
     <div className="flex flex-col">
       <div className="divider">No.{id}</div>
       <div
         className="flex overflow-hidden w-full text-sm bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors cursor-pointer"
-        onClick={() => setIsOpenEdit((p) => !p)}
+        onClick={handleToggle}
       >
         <div className="flex flex-1 py-4 pl-4">
           <span className="text-black">{sub}</span>
