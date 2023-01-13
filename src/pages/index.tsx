@@ -15,8 +15,10 @@ const Page: NextPage = () => {
 
   useEffect(() => {
     const f = async () => {
-      const text = await file?.text()
-      setFileText(text ?? "")
+      if (file) {
+        const text = await file.text()
+        setFileText(text ?? "")
+      }
     }
     f()
   }, [file])
