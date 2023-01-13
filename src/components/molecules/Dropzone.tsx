@@ -16,7 +16,7 @@ export const Dropzone = ({ onDrop }: Props) => {
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop: handleDrop,
     accept: {
-      subtitle: [".srt"],
+      "text/plain": [".srt"],
     },
     maxFiles: 1,
   })
