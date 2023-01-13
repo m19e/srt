@@ -23,6 +23,7 @@ const useSubtitleMap = () => {
   const [fileText, setFileText] = useState("")
   const [subtitleMap, setSubtitleMap] = useState(new Map<string, Subtitle>([]))
 
+  const subtitles = Array.from(subtitleMap.values())
   const emptySubs = subtitleMap.size === 0
 
   useEffect(() => {
@@ -43,19 +44,41 @@ const useSubtitleMap = () => {
     }
   }
 
-  return { fileText, emptySubs, subtitleMap, setFile, updateSubtitle }
+  return { fileText, emptySubs, subtitles, setFile, updateSubtitle }
+}
+
+const downloadURI = (uri: string, name: string) => {
+  const link = document.createElement("a")
+  link.download = name
+  link.href = uri
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
 
 const Page: NextPage = () => {
-  const { subtitleMap, emptySubs, setFile, updateSubtitle } = useSubtitleMap()
+  const { subtitles, emptySubs, setFile, updateSubtitle } = useSubtitleMap()
+
+  const handleDownload = () => {
+    const data = new Blob(
+      [subtitles.map((s) => [s.id, s.time, s.sub].join("\n")).join("\n\n")],
+      { type: "text/plain" }
+    )
+    const uri = URL.createObjectURL(data)
+    const fileName = `GAP_test.srt`
+    downloadURI(uri, fileName)
+  }
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen font-sans bg-base-100">
       <div className="flex overflow-auto flex-col items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
         <Dropzone onDrop={setFile} />
+        <button className="btn" onClick={handleDownload}>
+          download
+        </button>
         {!emptySubs && (
           <div className="flex flex-col">
-            {Array.from(subtitleMap.values()).map((sub) => (
+            {subtitles.map((sub) => (
               <SubtitleItem
                 key={sub.id}
                 subtitle={sub}
