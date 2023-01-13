@@ -121,7 +121,7 @@ const SubtitleEdit = (props: EditProps) => {
     <input
       {...props}
       type="text"
-      placeholder="Type here"
+      placeholder="Edit Subtitle"
       className="w-full text-black bg-white input"
       spellCheck={false}
     />
