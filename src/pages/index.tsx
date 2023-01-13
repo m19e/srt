@@ -1,6 +1,6 @@
 import type { NextPage } from "next"
 import { useState, useEffect } from "react"
-import type { Dispatch, SetStateAction, ChangeEvent } from "react"
+import type { ChangeEvent } from "react"
 import { Dropzone } from "@/components/molecules/Dropzone"
 
 type Subtitle = {
@@ -9,11 +9,7 @@ type Subtitle = {
   sub: string
 }
 
-const useSubtitleMap = (): {
-  fileText: string
-  emptyText: boolean
-  setFile: Dispatch<SetStateAction<File | null>>
-} => {
+const useSubtitleMap = () => {
   const [file, setFile] = useState<File | null>(null)
   const [fileText, setFileText] = useState("")
   const emptyText = fileText === ""
