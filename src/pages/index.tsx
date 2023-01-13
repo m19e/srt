@@ -11,23 +11,25 @@ type Subtitle = {
 
 const Page: NextPage = () => {
   const [file, setFile] = useState<File | null>(null)
-  const [data, setData] = useState("")
+  const [fileText, setFileText] = useState("")
 
   useEffect(() => {
     const f = async () => {
       const text = await file?.text()
-      setData(text ?? "")
+      setFileText(text ?? "")
     }
     f()
   }, [file])
+
+  const blocks = fileText.split("\n\n")
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen font-sans bg-base-100">
       <div className="flex overflow-auto flex-col items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
         <Dropzone onDrop={setFile} />
-        {data !== "" && (
+        {fileText !== "" && (
           <div className="flex flex-col">
-            {data.split("\n\n").map((block, i) => (
+            {blocks.map((block, i) => (
               <SubtitleItem key={block + i} block={block} />
             ))}
           </div>
