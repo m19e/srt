@@ -9,7 +9,7 @@ type Subtitle = {
   sub: string
 }
 
-const createSubtitleMap = (text: string) => {
+const createSubtitleMapFromSrt = (text: string) => {
   return new Map<string, Subtitle>(
     text.split("\n\n").map((block) => {
       const [id, time, sub] = block.split("\n")
@@ -32,7 +32,7 @@ const useSubtitleMap = () => {
     const f = async () => {
       if (file) {
         const text = await file.text()
-        setSubtitleMap(createSubtitleMap(text))
+        setSubtitleMap(createSubtitleMapFromSrt(text))
       }
     }
     f()
