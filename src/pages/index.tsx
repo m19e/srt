@@ -78,13 +78,33 @@ const Page: NextPage = () => {
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen font-sans bg-base-100">
-      <div className="flex overflow-auto flex-col items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
-        <Dropzone onDrop={setFile} />
-        <button className="btn" onClick={handleDownload}>
-          download
-        </button>
+      <div className="flex overflow-auto flex-col gap-4 items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
+        <Dropzone onDrop={handleDrop} />
         {!emptySubs && (
           <div className="flex flex-col">
+            <div className="flex gap-4">
+              <div className="flex flex-1 gap-2">
+                <input
+                  type="text"
+                  placeholder="Generate file name"
+                  className="flex-1 text-base text-black bg-white input"
+                  spellCheck={false}
+                  value={generateFileName}
+                  onChange={(e) => setGenerateFileName(e.currentTarget.value)}
+                />
+                <div className="flex items-center">
+                  <span className="text-xl font-semibold">.srt</span>
+                </div>
+              </div>
+              <button
+                className="bg-gradient-to-tr from-purple-600 to-purple-900 rounded-lg btn"
+                onClick={handleDownload}
+              >
+                <span className="font-semibold text-white capitalize">
+                  generate
+                </span>
+              </button>
+            </div>
             {subtitles.map((sub) => (
               <SubtitleItem
                 key={sub.id}
