@@ -161,7 +161,7 @@ const SubtitleItem = ({ subtitle, onUpdate }: ItemProps) => {
         className="flex overflow-hidden w-full text-xs bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors cursor-pointer sm:text-sm"
         onClick={handleToggle}
       >
-        <div className="flex flex-1 py-4 pl-4">
+        <div className="flex-1 py-3 pl-2 sm:py-4 sm:pl-4">
           <span className="text-black select-none">{sub}</span>
         </div>
 
