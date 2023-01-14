@@ -20,7 +20,6 @@ const createSubtitleMap = (text: string) => {
 
 const useSubtitleMap = () => {
   const [file, setFile] = useState<File | null>(null)
-  const [fileText, setFileText] = useState("")
   const [subtitleMap, setSubtitleMap] = useState(new Map<string, Subtitle>([]))
 
   const subtitles = Array.from(subtitleMap.values())
@@ -30,7 +29,6 @@ const useSubtitleMap = () => {
     const f = async () => {
       if (file) {
         const text = await file.text()
-        setFileText(text ?? "")
         setSubtitleMap(createSubtitleMap(text))
       }
     }
@@ -44,7 +42,7 @@ const useSubtitleMap = () => {
     }
   }
 
-  return { fileText, emptySubs, subtitles, setFile, updateSubtitle }
+  return { subtitles, emptySubs, setFile, updateSubtitle }
 }
 
 const downloadURI = (uri: string, name: string) => {
