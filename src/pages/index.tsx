@@ -26,7 +26,6 @@ const useSubtitleMap = () => {
   const [subtitleMap, setSubtitleMap] = useState(new Map<string, Subtitle>([]))
 
   const subtitles = Array.from(subtitleMap.values())
-  const emptySubs = subtitleMap.size === 0
 
   useEffect(() => {
     const f = async () => {
@@ -45,7 +44,7 @@ const useSubtitleMap = () => {
     }
   }
 
-  return { subtitles, emptySubs, setFile, updateSubtitle }
+  return { subtitles, setFile, updateSubtitle }
 }
 
 const downloadURI = (uri: string, name: string) => {
@@ -58,7 +57,8 @@ const downloadURI = (uri: string, name: string) => {
 }
 
 const Page: NextPage = () => {
-  const { subtitles, emptySubs, setFile, updateSubtitle } = useSubtitleMap()
+  const { subtitles, setFile, updateSubtitle } = useSubtitleMap()
+  const emptySubs = !subtitles.length
 
   const handleDownload = () => {
     const data = new Blob([createSrtFromSubtitles(subtitles)], {
