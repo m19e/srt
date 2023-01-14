@@ -85,6 +85,7 @@ const Page: NextPage = () => {
           type="image/svg+xml"
           href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f411.svg"
         />
+        <title>SRT | Simple .srt editor</title>
       </Head>
       <div className="flex overflow-auto flex-col gap-4 items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
         <Dropzone onDrop={handleDrop} />
