@@ -1,3 +1,4 @@
+import path from "path"
 import type { NextPage } from "next"
 import { useState, useEffect } from "react"
 import type { ChangeEvent } from "react"
@@ -57,15 +58,21 @@ const downloadURI = (uri: string, name: string) => {
 }
 
 const Page: NextPage = () => {
+  const [generateFileName, setGenerateFileName] = useState("")
   const { subtitles, setFile, updateSubtitle } = useSubtitleMap()
   const emptySubs = !subtitles.length
+
+  const handleDrop = (file: File) => {
+    setGenerateFileName(path.parse(file.name).name + "_edit")
+    setFile(file)
+  }
 
   const handleDownload = () => {
     const data = new Blob([createSrtFromSubtitles(subtitles)], {
       type: "text/plain",
     })
     const uri = URL.createObjectURL(data)
-    const fileName = `GAP_test.srt`
+    const fileName = `${generateFileName}.srt`
     downloadURI(uri, fileName)
   }
 
