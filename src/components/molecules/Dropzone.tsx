@@ -46,10 +46,10 @@ export const Dropzone = ({ onDrop }: Props) => {
           <p className="font-semibold">
             {acceptedFiles.length
               ? acceptedFiles[0].name
-              : "Select a file or drag it here"}
+              : "Select your file or drag it here"}
           </p>
           <div className="py-2 px-4 bg-gradient-to-tr from-purple-600 to-purple-900 rounded-lg">
-            <span className="font-semibold text-white">Select File</span>
+            <span className="font-semibold text-white">Select .SRT File</span>
           </div>
         </div>
       </div>
