@@ -89,9 +89,9 @@ const Page: NextPage = () => {
       </Head>
       <div className="flex flex-col gap-4 items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
         <div className="flex w-full">
-          <h1 className="text-3xl font-black text-white font-latego">
+          <h1 className="text-3xl font-black font-latego">
             SRT
-            <span className="px-4 text-xl font-medium">simple .srt editor</span>
+            <span className="px-2 text-xl font-medium">simple .srt editor</span>
           </h1>
         </div>
         <Dropzone onDrop={handleDrop} />
