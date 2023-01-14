@@ -87,17 +87,19 @@ const Page: NextPage = () => {
         />
         <title>SRT | Simple .srt editor</title>
       </Head>
-      <div className="flex flex-col gap-4 items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
+      <div className="flex flex-col items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
         <div className="flex w-full">
           <h1 className="text-3xl font-black select-none font-latego">
             SRT
             <span className="px-2 text-xl font-medium">simple .srt editor</span>
           </h1>
         </div>
-        <Dropzone onDrop={handleDrop} />
+        <div className="py-4 w-full">
+          <Dropzone onDrop={handleDrop} />
+        </div>
         {!emptySubs && (
-          <div className="flex flex-col font-latego">
-            <div className="flex gap-4">
+          <>
+            <div className="flex flex-col gap-2 w-full sm:flex-row font-latego">
               <div className="flex flex-1 gap-2">
                 <input
                   type="text"
@@ -112,7 +114,7 @@ const Page: NextPage = () => {
                 </div>
               </div>
               <button
-                className="bg-gradient-to-tr from-purple-600 to-purple-900 rounded-lg btn"
+                className="text-base bg-gradient-to-tr from-purple-600 to-purple-900 rounded-lg btn"
                 onClick={handleDownload}
               >
                 <span className="font-sans font-semibold text-white capitalize">
@@ -127,7 +129,7 @@ const Page: NextPage = () => {
                 onUpdate={updateSubtitle}
               />
             ))}
-          </div>
+          </>
         )}
       </div>
     </div>
@@ -155,13 +157,13 @@ const SubtitleItem = ({ subtitle, onUpdate }: ItemProps) => {
   }
 
   return (
-    <div className="flex flex-col font-latego">
+    <div className="flex flex-col w-full font-latego">
       <div className="font-sans select-none divider">No.{id}</div>
       <div
         className="flex overflow-hidden w-full text-sm bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors cursor-pointer"
         onClick={handleToggle}
       >
-        <div className="flex flex-1 py-4 pl-4">
+        <div className="flex-1 py-4 pl-4">
           <span className="text-black select-none">{sub}</span>
         </div>
 
@@ -237,7 +239,7 @@ const SubtitleEdit = (props: EditProps) => {
       {...props}
       type="text"
       placeholder="Edit Subtitle"
-      className="w-full text-black bg-white input"
+      className="w-full text-sm text-black bg-white input"
       spellCheck={false}
     />
   )
