@@ -87,7 +87,7 @@ const Page: NextPage = () => {
                 <input
                   type="text"
                   placeholder="Generate file name"
-                  className="flex-1 text-base text-black bg-white input"
+                  className="flex-1 text-black bg-white input"
                   spellCheck={false}
                   value={generateFileName}
                   onChange={(e) => setGenerateFileName(e.currentTarget.value)}
