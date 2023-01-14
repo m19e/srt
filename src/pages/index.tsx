@@ -160,7 +160,7 @@ const SubtitleItem = ({ subtitle, onUpdate }: ItemProps) => {
     <div className="flex flex-col w-full font-latego">
       <div className="font-sans select-none divider">No.{id}</div>
       <div
-        className="flex overflow-hidden w-full text-xs bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors cursor-pointer sm:text-sm"
+        className="flex overflow-hidden w-full text-sm bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors cursor-pointer"
         onClick={handleToggle}
       >
         <div className="flex-1 py-3 pl-2 sm:py-4 sm:pl-4">
@@ -239,7 +239,7 @@ const SubtitleEdit = (props: EditProps) => {
       {...props}
       type="text"
       placeholder="Edit Subtitle"
-      className="w-full text-xs text-black bg-white sm:text-sm input"
+      className="w-full text-sm text-black bg-white input"
       spellCheck={false}
     />
   )
