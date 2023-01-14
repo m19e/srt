@@ -24,7 +24,7 @@ export const Dropzone = ({ onDrop }: Props) => {
   return (
     <div
       {...getRootProps()}
-      className="flex flex-col items-center p-2 w-full h-40 bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors card"
+      className="flex flex-col items-center p-2 w-full h-40 font-sans bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors card"
     >
       <div className="flex flex-col justify-center items-center w-full h-full text-sm sm:text-base text-base-content rounded-box">
         <input {...getInputProps()} />
