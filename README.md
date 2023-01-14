@@ -1,1 +1,1 @@
-# (not) Specical Response Team
+# 🐏 SRT | simple .srt editor

@@ -1,5 +1,6 @@
 import path from "path"
 import type { NextPage } from "next"
+import Head from "next/head"
 import { useState, useEffect } from "react"
 import type { ChangeEvent } from "react"
 import { Dropzone } from "@/components/molecules/Dropzone"
@@ -78,7 +79,21 @@ const Page: NextPage = () => {
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen bg-base-100">
-      <div className="flex overflow-auto flex-col gap-4 items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
+      <Head>
+        <link
+          rel="icon alternate"
+          type="image/svg+xml"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f411.svg"
+        />
+        <title>SRT | Simple .srt editor</title>
+      </Head>
+      <div className="flex flex-col gap-4 items-center p-4 w-full sm:w-2/3 sm:max-w-xl">
+        <div className="flex w-full">
+          <h1 className="text-3xl font-black font-latego">
+            SRT
+            <span className="px-2 text-xl font-medium">simple .srt editor</span>
+          </h1>
+        </div>
         <Dropzone onDrop={handleDrop} />
         {!emptySubs && (
           <div className="flex flex-col font-latego">
