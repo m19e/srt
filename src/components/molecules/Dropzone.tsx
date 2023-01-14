@@ -24,7 +24,7 @@ export const Dropzone = ({ onDrop }: Props) => {
   return (
     <div
       {...getRootProps()}
-      className="flex flex-col items-center p-2 w-full h-40 font-sans bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors card"
+      className="flex flex-col items-center p-2 w-full h-40 font-sans bg-white rounded-lg border-2 border-gray-100 hover:border-purple-800 transition-colors select-none card"
     >
       <div className="flex flex-col justify-center items-center w-full h-full text-sm sm:text-base text-base-content rounded-box">
         <input {...getInputProps()} />
@@ -46,10 +46,10 @@ export const Dropzone = ({ onDrop }: Props) => {
           <p className="font-semibold">
             {acceptedFiles.length
               ? acceptedFiles[0].name
-              : "Select a file or drag it here"}
+              : "Select your file or drag it here"}
           </p>
           <div className="py-2 px-4 bg-gradient-to-tr from-purple-600 to-purple-900 rounded-lg">
-            <span className="font-semibold text-white">Select File</span>
+            <span className="font-semibold text-white">Select .SRT File</span>
           </div>
         </div>
       </div>
