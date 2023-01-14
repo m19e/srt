@@ -18,6 +18,9 @@ const createSubtitleMap = (text: string) => {
   )
 }
 
+const createSrtFromSubtitles = (subs: Subtitle[]) =>
+  subs.map((s) => [s.id, s.time, s.sub].join("\n")).join("\n\n")
+
 const useSubtitleMap = () => {
   const [file, setFile] = useState<File | null>(null)
   const [subtitleMap, setSubtitleMap] = useState(new Map<string, Subtitle>([]))
@@ -58,10 +61,9 @@ const Page: NextPage = () => {
   const { subtitles, emptySubs, setFile, updateSubtitle } = useSubtitleMap()
 
   const handleDownload = () => {
-    const data = new Blob(
-      [subtitles.map((s) => [s.id, s.time, s.sub].join("\n")).join("\n\n")],
-      { type: "text/plain" }
-    )
+    const data = new Blob([createSrtFromSubtitles(subtitles)], {
+      type: "text/plain",
+    })
     const uri = URL.createObjectURL(data)
     const fileName = `GAP_test.srt`
     downloadURI(uri, fileName)
